@@ -1,16 +1,22 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { StoreOptions } from 'vuex';
+import vuexLocal from '@/plugins/vuex-persist';
+import { RootState } from '@/store/types';
+import { productModule } from '@/store/products';
+import { cartModule } from '@/store/cart';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store: StoreOptions<RootState> = {
   state: {
-
+    appName: 'Tienda y carrito',
+    appVersion: 'Versión 0.0.1',
   },
-  mutations: {
-
+  modules: {
+    productModule,
+    cartModule,
   },
-  actions: {
+  plugins: [vuexLocal.plugin],
+};
 
-  },
-});
+export default new Vuex.Store<RootState>(store);
